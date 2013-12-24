@@ -39,4 +39,11 @@ defmodule Enum2 do
   defp _take_backward(list, n) do
     Enum.reverse(_take_forward(Enum.reverse(list), -n))
   end
+
+  def flatten(list), do: Enum.reverse(_flatten(list,[]))
+  defp _flatten(_list=[], acc), do: acc
+  defp _flatten([head|tail], acc) when is_list(head) do
+    _flatten(tail, _flatten(head, acc))
+  end
+  defp _flatten([head|tail], acc), do: _flatten(tail, [head|acc])
 end
